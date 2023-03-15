@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">HelloWorld</string>
+    <string name="etTo_hint">Per</string>
+    <string name="etSubject_hint">Subjekti</string>
+    <string name="etMessage_hint">Teksti</string>
+    <string name="btnSend_text">Dergo</string>
+</resources>

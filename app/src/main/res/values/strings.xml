@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">HelloWorld</string>
+    <string name="etTo_hint">To</string>
+    <string name="etSubject_hint">Subject</string>
+    <string name="etMessage_hint">Message</string>
+    <string name="btnSend_text">Send</string>
 </resources>

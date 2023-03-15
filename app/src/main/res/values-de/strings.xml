@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">HelloWorld</string>
+    <string name="etTo_hint">To(DE)</string>
+    <string name="etSubject_hint">Subject(DE)</string>
+    <string name="etMessage_hint">Message(DE)</string>
+    <string name="btnSend_text">Send(DE)</string>
+</resources>
