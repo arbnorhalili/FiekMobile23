@@ -58,5 +58,14 @@
             android:layout_below="@id/etPassword"
             android:layout_alignParentRight="true"
             android:id="@+id/btnLogin"></Button>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="Reset"
+            android:layout_below="@id/etPassword"
+            android:layout_toLeftOf="@id/btnLogin"
+            android:layout_marginRight="10dp"
+            android:id="@+id/btnReset"></Button>
     </RelativeLayout>
 </RelativeLayout>
