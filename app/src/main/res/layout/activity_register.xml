@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@drawable/register_background"
+                android:id="@+id/view1"></View>
+
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@mipmap/ic_launcher"
+                android:layout_alignBottom="@id/view1"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="-30dp"
+                android:id="@+id/imgProfilePic"></ImageView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_below="@id/imgProfilePic"
+                android:layout_marginTop="40dp"
+                android:padding="16dp"
+                android:id="@+id/linlay">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Email"
+                    android:id="@+id/tvEmail"
+                    android:layout_below="@id/imgProfilePic"></TextView>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:id="@+id/etEmail"
+                    android:imeOptions="actionNext"
+                    android:inputType="textEmailAddress"></EditText>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Password"></TextView>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:id="@+id/etPassword"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPassword"></EditText>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Repeat password"></TextView>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:id="@+id/etRepeatPassword"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPassword"></EditText>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="#FF0000"
+                android:layout_below="@id/linlay"
+                android:layout_margin="16dp"></View>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Personal data"
+                android:layout_below="@id/linlay"
+                android:background="@color/white"
+                android:layout_centerHorizontal="true"
+                android:padding="7dp"
+                android:id="@+id/tvPersonalData"></TextView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_below="@id/tvPersonalData"
+                android:layout_marginTop="20dp"
+                android:padding="16dp"
+                android:id="@+id/linlay2">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Name"></TextView>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:id="@+id/etName"
+                    android:imeOptions="actionNext"
+                    android:inputType="textCapWords"></EditText>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Surname"></TextView>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:id="@+id/etSurname"
+                    android:imeOptions="actionDone"
+                    android:inputType="textCapWords"></EditText>
+            </LinearLayout>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/linlay2"
+                android:text="Register"
+                android:padding="10dp"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/btnRegister"></Button>
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>
