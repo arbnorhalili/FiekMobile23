@@ -3,6 +3,8 @@ package com.fiek.helloworld;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -35,17 +37,7 @@ public class LoginRelativeActivity extends AppCompatActivity implements View.OnC
 
     private void checkCredentials(String username, String password)
     {
-        if(username.equals("admin") && password.equals("admin"))
-        {
-            Intent intenti = new Intent(LoginRelativeActivity.this,WelcomeActivity.class);
-            intenti.putExtra("username", etUsername.getText().toString());
-            startActivity(intenti);
-        }
-        else
-        {
-            Toast.makeText(LoginRelativeActivity.this, "Kredencialet jane gabim",
-                    Toast.LENGTH_LONG).show();
-        }
+        LoginDb(username, password);
     }
 
     @Override
@@ -59,6 +51,42 @@ public class LoginRelativeActivity extends AppCompatActivity implements View.OnC
                 etUsername.setText("");
                 etPassword.setText("");
                 break;
+        }
+    }
+
+    private void LoginDb(String email, String password)
+    {
+        SQLiteDatabase objDb = (new DatabaseHelper(LoginRelativeActivity.this)).getReadableDatabase();
+        Cursor cursor = objDb.query("Users",new String[]{"Email", "Password", "Name", "Surname"},
+                "Email=?", new String[]{ email }, "","","");
+
+        //select Email, Password, Name, Surname from Users where Email = email
+        if(cursor.getCount()==0)
+        {
+            Toast.makeText(LoginRelativeActivity.this, "Kredencialet jane gabim",
+                    Toast.LENGTH_LONG).show();
+        }
+        else
+        {
+            cursor.moveToFirst();
+            String dbEmail = cursor.getString(0);
+            String dbPassword = cursor.getString(1);
+            String dbName = cursor.getString(2);
+            String dbSurname = cursor.getString(3);
+
+            if(dbPassword.equals(password))
+            {
+                Intent intenti = new Intent(LoginRelativeActivity.this,WelcomeActivity.class);
+                intenti.putExtra("username", email);
+                intenti.putExtra("name", dbName);
+                intenti.putExtra("surname", dbSurname);
+                startActivity(intenti);
+            }
+            else
+            {
+                Toast.makeText(LoginRelativeActivity.this, "Kredencialet jane gabim",
+                        Toast.LENGTH_LONG).show();
+            }
         }
     }
 }

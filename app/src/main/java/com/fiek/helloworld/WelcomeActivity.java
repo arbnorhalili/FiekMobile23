@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 public class WelcomeActivity extends AppCompatActivity {
 
-    String username = "";
+    String username = "", name = "", surname = "";
     TextView tvWelcome;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,10 +16,13 @@ public class WelcomeActivity extends AppCompatActivity {
 
         tvWelcome = findViewById(R.id.tvWelcome);
 
-        if(getIntent().hasExtra("username"))
+        if(getIntent().hasExtra("username") && getIntent().hasExtra("name") &&
+            getIntent().hasExtra("surname"))
         {
             username = getIntent().getExtras().getString("username");
-            tvWelcome.setText("Welcome "+username);
+            name = getIntent().getExtras().getString("name");
+            surname = getIntent().getExtras().getString("surname");
+            tvWelcome.setText("Welcome "+name+" "+surname);
         }
     }
 }
