@@ -3,6 +3,7 @@ package com.fiek.helloworld;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -24,6 +25,17 @@ public class LoginRelativeActivity extends AppCompatActivity implements View.OnC
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
         btnReset = findViewById(R.id.btnReset);
+
+        if(ReadSharedPreferences()[0].length()>0)
+        {
+            Intent intenti = new Intent(LoginRelativeActivity.this,WelcomeActivity.class);
+            intenti.putExtra("username", ReadSharedPreferences()[0]);
+            intenti.putExtra("name", ReadSharedPreferences()[1]);
+            intenti.putExtra("surname", ReadSharedPreferences()[2]);
+            intenti.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intenti);
+            finish();
+        }
 
         btnLogin.setOnClickListener(this);
         btnReset.setOnClickListener(this);
@@ -76,11 +88,14 @@ public class LoginRelativeActivity extends AppCompatActivity implements View.OnC
 
             if(dbPassword.equals(password))
             {
+                WriteSharedPreference(email,dbName,dbSurname);
                 Intent intenti = new Intent(LoginRelativeActivity.this,WelcomeActivity.class);
                 intenti.putExtra("username", email);
                 intenti.putExtra("name", dbName);
                 intenti.putExtra("surname", dbSurname);
+                intenti.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intenti);
+                finish();
             }
             else
             {
@@ -88,5 +103,25 @@ public class LoginRelativeActivity extends AppCompatActivity implements View.OnC
                         Toast.LENGTH_LONG).show();
             }
         }
+
+
+    }
+
+    private void WriteSharedPreference(String _username,String _name, String _surname)
+    {
+        SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref",MODE_PRIVATE);
+        SharedPreferences.Editor myEdit = sharedPreferences.edit();
+        myEdit.putString("username", _username);
+        myEdit.putString("name", _name);
+        myEdit.putString("surname", _surname);
+        myEdit.commit();
+    }
+
+    private String[] ReadSharedPreferences()
+    {
+        SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        return new String[]{ sh.getString("username", ""),
+                sh.getString("name", ""),
+                sh.getString("surname", "")};
     }
 }
