@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Looper;
 import android.util.Log;
+import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -24,13 +26,22 @@ import okhttp3.Response;
 public class PostsActivity extends AppCompatActivity {
 
     OkHttpClient client = new OkHttpClient();
+    ListView lvPosts;
+    ProgressBar progressBarPosts;
+    PostsAdapter postsAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_posts);
 
+        progressBarPosts = findViewById(R.id.progressBarPosts);
+        lvPosts = findViewById(R.id.lvPosts);
+
+        postsAdapter = new PostsAdapter(PostsActivity.this);
+        lvPosts.setAdapter(postsAdapter);
+
         Request request = new Request.Builder()
-                .url("https://jsonplaceholder.typicode.com/posts/1")
+                .url("https://jsonplaceholder.typicode.com/posts")
                 .build();
 
         /*try (Response response = client.newCall(request).execute()) {
@@ -51,12 +62,31 @@ public class PostsActivity extends AppCompatActivity {
                 if(response.isSuccessful())
                 {
                     Gson gson = new Gson();
-                    //Type listType = new TypeToken<List<PostClass>>(){}.getType();
-                    //List<PostClass> responseObjects = (List<PostClass>)gson.fromJson(response.body().string(),
-                    //        listType);
+                    Type listType = new TypeToken<List<PostClass>>(){}.getType();
+                    List<PostClass> responseObjects = (List<PostClass>)gson.fromJson(response.body().string(),
+                            listType);
 
-                    PostClass obj = gson.fromJson(response.body().string(), PostClass.class);
-                    Log.i("ResponseString", obj.getTitle());
+                    for(int i=0;i<responseObjects.size();i++)
+                    {
+
+                        postsAdapter.datasource.add(responseObjects.get(i));
+                        progressBarPosts.setProgress(i+1);
+                        try {
+                            Thread.sleep(10);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+
+                    }
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            postsAdapter.notifyDataSetChanged();
+                        }
+                    });
+                    //PostClass obj = gson.fromJson(response.body().string(), PostClass.class);
+                    Log.i("ResponseString", responseObjects.get(0).getTitle());
                 }
             }
         });
